@@ -1,6 +1,10 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "chrome-safari-bookmarks-sync"
-version = "0.1.0"
+version = "0.2.0"
 description = "Conservative bidirectional bookmark sync between Google Chrome and Safari on macOS."
 readme = "README.md"
 requires-python = ">=3.9"
@@ -17,6 +21,9 @@ classifiers = [
 
 [project.scripts]
 chrome-safari-bookmarks-sync = "chrome_to_safari:main"
+
+[tool.setuptools]
+py-modules = ["chrome_to_safari"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

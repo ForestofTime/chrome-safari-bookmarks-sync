@@ -5,7 +5,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PYTHON="${PYTHON:-/usr/bin/python3}"
 MODE="both"
 APPLY=1
-RUN_TESTS=1
+RUN_TESTS=0
 EXTRA_ARGS=()
 
 usage() {
@@ -19,7 +19,12 @@ Options:
   --dry-run                 Preview changes without writing files.
   --apply                   Write changes. This is the default.
   --mode MODE               both, chrome-to-safari, or safari-to-chrome.
-  --skip-tests              Skip the built-in unit tests.
+  --dedup-policy POLICY     conservative (default) or tracking.
+  --backup-retention COUNT  Keep this many backups per browser file.
+  --allow-running-browsers  Bypass the destination-browser safety check.
+  --include-active-bookmarks  Include javascript: and data: bookmarks.
+  --run-tests               Run the built-in unit tests before syncing.
+  --skip-tests              Do not run tests. Kept for compatibility.
   --install-agent           Install the automatic LaunchAgent after this run.
   --                         Pass the rest of the arguments to chrome_to_safari.py.
 
@@ -47,6 +52,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     --skip-tests)
       RUN_TESTS=0
+      shift
+      ;;
+    --run-tests)
+      RUN_TESTS=1
       shift
       ;;
     --install-agent)
